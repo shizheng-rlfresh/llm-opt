@@ -1,1 +1,5 @@
-<p>This is just a test.</p>
+<script>
+    export let kit = 'sveltekit';
+</script>
+
+<p>This is just a {kit} test.</p>

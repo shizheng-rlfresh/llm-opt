@@ -11,12 +11,12 @@
 </script>
 
 <img class="w-16" {src} alt="svelte logo" />
-<h1 class="text-3xl font-bold underline">Welcome to SvelteKit</h1>
+<h1 class="text-3xl font-bold underline"><a href="/">Welcome to SvelteKit</a></h1>
 <p class="my-4">
     Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation
 </p>
 
-<!-- <Nested /> -->
+<Nested />
 
 <button
     class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
