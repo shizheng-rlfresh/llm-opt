@@ -1,3 +1,7 @@
+<script context="module">
+    export const kk = 'sveltekit';
+</script>
+
 <script>
     /**
      * @type {string}

@@ -1,14 +1,21 @@
+<!--
+    @component
+    This is a page component.    
+-->
+
 <script>
-    import Nested from './Nested.svelte';
+    // import Nested from './Nested.svelte';
+    import { kk } from './Nested.svelte';
+    console.log(kk);
     import src from '$lib/images/favicon.png';
-    const multiple = [2, 3, 4];
-    let count = 0;
+    // const multiple = [2, 3, 4];
+    // let count = 0;
 
-    function increment() {
-        count += 1;
-    }
+    // function increment() {
+    //     count += 1;
+    // }
 
-    $: double = count * 2;
+    // $: double = count * 2;
 </script>
 
 <div class="flex min-h-screen flex-col items-center justify-center gap-4 p-4">
@@ -18,7 +25,9 @@
         Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation
     </p>
 
-    {#if count % 2 === 0}
+    <!-- <Nested kit="double" /> -->
+
+    <!-- {#if count % 2 === 0}
         <Nested />
     {:else}
         <p class="flex gap-1">
@@ -49,7 +58,7 @@
         {count === 1 ? 'time' : 'times'}
         {count % 2 === 1 ? '🔥' : '🔥🔥'}
         {`#click(s) x 2 = ${double}`}
-    </button>
+    </button> -->
 </div>
 
 <style lang="postcss">
