@@ -1,64 +1,33 @@
+<script>
+    import { fade } from 'svelte/transition';
+    import Nested from './Nested.svelte';
+    import src from '$lib/images/favicon.png';
+    let kkk = 'sveltekit';
+</script>
+
 <!--
     @component
     This is a page component.    
 -->
 
-<script>
-    // import Nested from './Nested.svelte';
-    import { kk } from './Nested.svelte';
-    console.log(kk);
-    import src from '$lib/images/favicon.png';
-    // const multiple = [2, 3, 4];
-    // let count = 0;
-
-    // function increment() {
-    //     count += 1;
-    // }
-
-    // $: double = count * 2;
-</script>
-
 <div class="flex min-h-screen flex-col items-center justify-center gap-4 p-4">
     <img class="w-16" {src} alt="svelte logo" />
-    <h1 class="text-3xl font-bold underline"><a href="/">Welcome to SvelteKit</a></h1>
+    <h1 class="text-3xl font-bold underline"><a href="/">Welcome to {kkk}</a></h1>
     <p class="my-4">
         Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation
     </p>
 
-    <!-- <Nested kit="double" /> -->
+    <input type="text" bind:value={kkk} />
 
-    <!-- {#if count % 2 === 0}
-        <Nested />
-    {:else}
-        <p class="flex gap-1">
-            Look at it now! <Nested kit="double" />
-        </p>
-    {/if}
+    <Nested kit={kkk} />
+    <Nested>
+        {@const kkkk = `inputing ${kkk} ? sveltekit`}
+        <p>{kkkk}</p>
+    </Nested>
 
-    {#each multiple as multi}
-        {@const localCount = 0}
-        {@const localMulti = localCount * multi}
-        {@const localIncrement = () => ()}
-    
-        <button
-            class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
-            on:click={localIncrement}
-        >
-            Clicked {localCount}
-            {localCount === 1 ? 'time' : 'times'}
-            {`#click(s) x ${multi} = ${localMulti}`}
-        </button>
-    {/each}
-
-    <button
-        class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
-        on:click={increment}
-    >
-        Clicked {count}
-        {count === 1 ? 'time' : 'times'}
-        {count % 2 === 1 ? '🔥' : '🔥🔥'}
-        {`#click(s) x 2 = ${double}`}
-    </button> -->
+    {#key kkk}
+        <div transition:fade>{kkk}</div>
+    {/key}
 </div>
 
 <style lang="postcss">
