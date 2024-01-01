@@ -10,6 +10,10 @@ const config = {
         adapter: adapter(),
     },
     preprocess: [vitePreprocess()],
+
+    vitePlugin: {
+        inspector: true,
+    },
 };
 
 export default config;
