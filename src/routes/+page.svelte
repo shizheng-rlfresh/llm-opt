@@ -10,6 +10,8 @@
     }
 </script>
 
-<div on:mousemove={onMousemove}>
+<div tabindex="1" on:mousemove={onMousemove}>
     <LinePlot {data} />
 </div>
+
+<div tabindex="2">haha</div>
