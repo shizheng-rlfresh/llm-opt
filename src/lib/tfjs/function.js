@@ -74,7 +74,7 @@ export function logisticRegression({ dim, bias = true, seed = 46 }) {
     }
 
     function getParams() {
-        return { w: w.dataSync(), b: b.dataSync() };
+        return { w, b };
     }
 
     return { computeLoss, computeGrad };

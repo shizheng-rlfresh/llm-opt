@@ -17,6 +17,7 @@
 		"@types/eslint": "8.56.0",
 		"@xenova/transformers": "^2.13.3",
 		"autoprefixer": "^10.4.16",
+		"d3": "^7.8.5",
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.35.1",
