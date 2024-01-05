@@ -12,8 +12,12 @@
     let loss = logReg.computeLoss(x, y, 0.5);
     // loss.print();
     let grad = logReg.computeGrad(x, y, 0.5);
+    console.log(grad.w.dtype);
+    console.log(typeof grad.w);
+    console.log(grad.w.arraySync());
+    console.log(grad.w.dataSync());
 </script>
 
 <p>{loss.dataSync()}</p>
-<!-- <p>{grad.wGrad}</p>
-<p>{grad.bGrad}</p> -->
+<p>{grad.w.arraySync()}</p>
+<p>{grad.b.arraySync()}</p>
