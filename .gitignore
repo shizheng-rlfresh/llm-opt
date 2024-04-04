@@ -1,0 +1,11 @@
+# Ignore compiled binaries
+*.exe
+*.dll
+*.so
+
+# Ignore log files
+*.log
+
+# Ignore directories
+test/
+.venv/
