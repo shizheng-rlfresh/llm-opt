@@ -1,6 +1,8 @@
 This repo demos fine-tuning / training LLMs using `adaptive` algorithms, including `first-order` and `second-order` methods. 
 
 ### Current status:
+We have a simple implementation of `Preconditioned (Truncated Newton) Conjugated Gradient Trust Region Method`, aka, `TRCG`; see [optim/trcg.py](https://github.com/shizheng-rlfresh/llm-opt/blob/main/optim/trcg.py) for details.
+
 
 
 ### Requirement:
