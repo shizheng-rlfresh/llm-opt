@@ -1,6 +1,6 @@
-> a list of `target_modules` that is currently implemented in `peft`
+a list of `target_modules` that is currently implemented in [`Huggingface peft`](https://github.com/huggingface/peft)
 
-`TRANSFORMERS_MODELS_TO_LORA_TARGET_MODULES_MAPPING`\
+[`TRANSFORMERS_MODELS_TO_LORA_TARGET_MODULES_MAPPING`](https://github.com/huggingface/peft/blob/c8974c5880b28a913e35f050e82402e34d181c63/src/peft/utils/constants.py#L48)\
     "t5": ["q", "v"],\
     "mt5": ["q", "v"],\
     "bart": ["q_proj", "v_proj"],\
