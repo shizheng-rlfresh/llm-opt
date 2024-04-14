@@ -1,6 +1,6 @@
 > a list of `target_modules` that is currently implemented in `peft`
 
-TRANSFORMERS_MODELS_TO_LORA_TARGET_MODULES_MAPPING = {
+`TRANSFORMERS_MODELS_TO_LORA_TARGET_MODULES_MAPPING = {
     "t5": ["q", "v"],
     "mt5": ["q", "v"],
     "bart": ["q_proj", "v_proj"],
@@ -32,4 +32,4 @@ TRANSFORMERS_MODELS_TO_LORA_TARGET_MODULES_MAPPING = {
     "stablelm": ["q_proj", "v_proj"],
     "phi": ["q_proj", "v_proj", "fc1", "fc2"],
     "gemma": ["q_proj", "v_proj"],
-}
+}`
