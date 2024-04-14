@@ -135,8 +135,8 @@ class TRCG:
             param_requires_grad = [w for w in self.model.parameters() if w.requires_grad]
             
             # hessian vector product
-#             loss_grad_direct = torch.sum(torch.stack([(gi*si).sum() for gi, si in zip(loss_grad,p0)]))
-#             HP = torch.autograd.grad(loss_grad_direct, param_requires_grad, retain_graph=True)
+            # loss_grad_direct = torch.sum(torch.stack([(gi*si).sum() for gi, si in zip(loss_grad,p0)]))
+            # HP = torch.autograd.grad(loss_grad_direct, param_requires_grad, retain_graph=True)
             
             loss_grad_direct \
             = torch.sum(torch.stack([(gi*(si*pr.data)).sum() for gi, si, pr in zip(loss_grad, p0, self.SquaredPreconditioner)]))
