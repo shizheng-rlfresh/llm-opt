@@ -286,5 +286,4 @@ class TRCG:
                 for wi,w0i in zip(param_requires_grad, w0):
                     wi.set_(w0i+0.0)
                     
-        return d, rho, update, CGITER, cg_term, loss_grad, norm_d, norm_p1, numerator, denominator,\
-               firstloop, secondloop, thirdloop, cgloop, f_cost, g_cost
+        return CGITER, cg_term, g_cost
