@@ -26,7 +26,7 @@ pip install -r requirements.txt
 - A simple implementation of `Trust Region Newton-CG`, aka, `TRCG`; see [optim/trcg.py](./optim/trcg.py) for details. TRCG is <ins>**Hessian-free** with only Hessian-vector product being needed, and no Hessian!</ins>. As LoRA brings down the size of models, ✨ let's give it a shot! 💪 
     - `Trust Region Newton-CG` is probably <ins>**the most underrated**</ins>  😖 optimizer in machine learning field. It is one of the best optimizers for solving nonconvex problems, e.g., deep neural networks. 
     - Coupled with `preconditioning`, `Trust Region Newton-CG` could yield even more promosing convergence property. 
-    - A BIG UNKNOWN - its generalized convergence in `stochastic` setting is yet to be proved ... that means, mini-batch training is not theoretically proved yet in general case.
+    - A BIG UNKNOWN - its general convergence in `stochastic` setting is yet to be proved ... that means, mini-batch training is not theoretically proved yet in general case.
     - A BIG BUT - I loved it, and I can show many successful uses cases using just naive `TRCG` with DNN, e.g., CNN, GNN, etc. 
     ```python
     # training loop
