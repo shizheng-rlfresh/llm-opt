@@ -28,6 +28,21 @@ pip install -r requirements.txt
     - Coupled with `preconditioning`, `Trust Region Newton-CG` could yield even more promosing convergence property. 
     - A BIG UNKNOWN - its convergence in general `stochastic` setting is yet to proved ... that means, mini-batch training is not theoretically proved yet.
     - A BIG BUT - I loved it, and I can show many successful uses cases using just naive `TRCG` with DNN, e.g., CNN, GNN, etc. 
+    ```python
+    # training loop
+    for minibatch in train_dataloader:
+        # ...
+        outputs = model(**minibatch)
+        # explicitly define lora param
+        lora_param = [w for w in model.parameters() if w.requires_grad]
+        # compute gradient explicitily using torch.autograd.grad
+        # critical piece is `create_graph=True`
+        V = torch.autograd.grad(outputs.loss, lora_param, create_graph=True)
+        # ...
+        # apply TRCG to take the step
+        optimizer.step(minibatch, outputs.loss.item(), V)
+        # ...
+    ```
 
 - Benchmark results of `TRCG` vs. `AdamW`:
     - T4 GPU | Dataset [oasst2](https://huggingface.co/datasets/sablo/oasst2_curated) |  Model [gpt2](https://huggingface.co/openai-community/gpt2)
@@ -56,6 +71,23 @@ pip install -r requirements.txt
 optimizer.radius *= 2.0
 ```
 - In pratice, for a stochastic (highly) nonconvex setting, some tricks need to be applied to `TRCG` such as the above line. It ensures `TRCG` perform meaningful steps instead of getting stuck (<ins> a side-effect of being stochastic</ins>). BUT, that is it. Nothing more! 😼
+
+```python
+# we first tried maintaining computing graph on 4bit model
+config = BitsAndBytesConfig(
+    load_in_4bit=True,
+    bnb_4bit_quant_type="nf4",
+    bnb_4bit_use_double_quant=True,
+    bnb_4bit_compute_dtype="float16",
+)
+model = AutoModelForCausalLM.from_pretrained("openai-community/gpt2",
+                                             torch_dtype=torch.float16,
+                                             device_map="auto", 
+                                             quantization_config=config)
+# With the following line, we upcast the model parms to float32 for loRA params
+model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=False )
+```
+- Non-float32 params makes second backward pass unstable, and this is an issue for most optimizers working on fp32 precision.  
 
 <br>
 <hr>
