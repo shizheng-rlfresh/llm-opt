@@ -23,11 +23,11 @@ pip install -r requirements.txt
 | 🤔 what else?
  
 ### Current status:
-- A simple implementation of `Trust Region Newton-CG`, aka, `TRCG`; see [optim/trcg.py](./optim/trcg.py) for details. TRCG is <ins>**Hessian-free** with only Hessian-vector product is needed, and no Hessian!</ins>. As LoRA brings down the side of models, ✨ let's give it a shot! 💪 
+- A simple implementation of `Trust Region Newton-CG`, aka, `TRCG`; see [optim/trcg.py](./optim/trcg.py) for details. TRCG is <ins>**Hessian-free** with only Hessian-vector product being needed, and no Hessian!</ins>. As LoRA brings down the size of models, ✨ let's give it a shot! 💪 
     - `Trust Region Newton-CG` is probably <ins>**the most underrated**</ins>  😖 optimizer in machine learning field. It is one of the best optimizers for solving nonconvex problems, e.g., deep neural networks. 
-    - Coupled with `preconditioning`, `Trust Region Newton-CG` could yield even more promosing convergence property than most optimizers. 
+    - Coupled with `preconditioning`, `Trust Region Newton-CG` could yield even more promosing convergence property. 
     - A BIG UNKNOWN - its convergence in general `stochastic` setting is yet to proved ... that means, mini-batch training is not theoretically proved yet.
-    - A BIG BUT - I loved it, and I can show many uses cases using naive `TRCG` to train DNN, e.g., CNN, GNN, etc. 
+    - A BIG BUT - I loved it, and I can show many successful uses cases using just naive `TRCG` with DNN, e.g., CNN, GNN, etc. 
 
 - Benchmark results of `TRCG` vs. `AdamW`:
     - T4 GPU | Dataset [oasst2](https://huggingface.co/datasets/sablo/oasst2_curated) |  Model [gpt2](https://huggingface.co/openai-community/gpt2)
@@ -43,7 +43,7 @@ pip install -r requirements.txt
     - modest level of hyper-parameter search for `AdamW`
     - `TRCG` does not need any hyper-parameter tuning! 💪
     - `# of gradient and/or Hessian vector products` shown in right figure tells `TRCG` is much more expensive than `AdamW`. (<ins>Well, that isn't too bad given `TRCG` is 2nd order method. It doesn't need tuning, right?</ins>)
-<div style="display: flex; justify-content: center; margin-bottom: 20px; padding: 10px">
+<div style="display: flex; justify-content: center; margin-bottom: 20px;">
     <img src="./static/gpt2/trcg_gpt2_loss.jpg" alt="Image 1" style="width: 40%;">
     <img src="./static/gpt2/trcg_gpt2_cost.jpg" alt="Image 1" style="width: 40%;">
 </div>
@@ -55,17 +55,28 @@ pip install -r requirements.txt
 # this ensures trust region radius won't shrink to zero
 optimizer.radius *= 2.0
 ```
-- In pratice, for a stochastic (highly) nonconvex setting, some tricks need to be applied to `TRCG` such as the above line. It ensures `TRCG` perform meaningful steps instead of getting stuck (<ins> a side-effect of being stochastic</ins>). BUT, that is all needed! 😼
+- In pratice, for a stochastic (highly) nonconvex setting, some tricks need to be applied to `TRCG` such as the above line. It ensures `TRCG` perform meaningful steps instead of getting stuck (<ins> a side-effect of being stochastic</ins>). BUT, that is it. Nothing more! 😼
 
+<br>
+<hr>
 
 ### Some thoughts
 As we continue to expand the algorithms, we aim to provide easy and simple implementations and running examples on using **adaptive** algorithms, which might be beyond just `Hessian-free` methods.  
 
-For `first-order` methods, we qualify an algorithm as `adaptive` if the tuning efforts of critical hyperparameters are nearly zero, such as **ones with no tuning required on learning rate** 
+For `first-order` methods, we qualify an algorithm as `adaptive` if the tuning efforts of critical hyperparameters are nearly zero, such as **ones with no tuning required on learning rates**.
 
 > e.g., `Adam` is not really a fully-adaptive algorithm ... simply because a global learning rate has to be supplied. It is known that one has to search for good learning-rate + some nice schedulers.
 
 `Second-order` methods, in particular, `Hessian-free` methods, are known to exploit the loss lanscape with assistance of second-order information. With recent development in memory/cost-efficient fine-tuning mechanisms of LLMs, e.g., **LoRA** and **quantization**, it becomes possible to validate  "maybe we can try to use Hessian-free methods to fine-tune some LLMs?" 
+
+|2nd-order optimizers | tuning learning-rate? | (Theory) general stochastic nonconvex setting?
+|-------------------------------------------|-------------------------------------|----------------------|
+| BFGS | Yes | Yes
+| TRCG | No | No |
+| Subsample Newton | Yes | Yes |
+
+<br>
+<hr>
 
 ### Requirement:
 ```bash
